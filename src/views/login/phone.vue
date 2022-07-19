@@ -4,15 +4,15 @@
       <el-form-item label="手机号" prop="phone">
         <el-input v-model="account.phone" />
       </el-form-item>
-      <el-form-item label="验证码" prop="mima">
-        <el-input v-model="account.mima" />
+      <el-form-item label="验证码" prop="mima" >
+        <el-input v-model="account.mima" width="100px"/>
         <el-button type="primary">获取验证码</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from "vue";
 export default defineComponent({
   setup() {

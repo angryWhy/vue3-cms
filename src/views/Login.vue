@@ -2,25 +2,24 @@
   <div>
     <div class="login-panel">
       <h1 class="title">后台管理系统</h1>
-      <el-tabs type="border-card" stretch ref="elform">
-        <el-tab-pane>
+      <el-tabs type="border-card" stretch v-model="currentTab">
+        <el-tab-pane name="account">
           <template #label>
             <span class="custom-tabs-label">
-              <el-icon><calendar /></el-icon>
+              <el-icon></el-icon>
               <span>账号密码登录</span>
             </span>
           </template>
           <user ref="accountRef" />
         </el-tab-pane>
-        <el-tab-pane
-          ><template #label>
+        <el-tab-pane name="phone"><template #label>
             <span class="custom-tabs-label">
-              <el-icon><calendar /></el-icon>
+              <el-icon></el-icon>
               <span>手机账号登录</span>
             </span>
           </template>
-          <user
-        /></el-tab-pane>
+          <phone />
+        </el-tab-pane>
       </el-tabs>
       <div class="account-control">
         <el-checkbox v-model="isKeep">记住密码</el-checkbox>
@@ -46,11 +45,17 @@ export default defineComponent({
   setup() {
     const isKeep = ref(true);
     const accountRef = ref<InstanceType<typeof user>>();
+    const currentTab = ref("account")
     const handleClick = () => {
-      console.log(accountRef.value?.login());
-    }; 
+      if (currentTab.value = "account") {
+        accountRef.value?.login()
+      } else {
+        console.log(currentTab.value);
+        console.log("phone");
+      }
+    };
 
-    return { isKeep, accountRef, handleClick };
+    return { isKeep, accountRef, handleClick, currentTab };
   },
 });
 </script>
@@ -59,9 +64,11 @@ export default defineComponent({
 .login-panel {
   width: 320px;
 }
+
 .title {
   text-align: center;
 }
+
 .account-control {
   display: flex;
   justify-content: space-between;

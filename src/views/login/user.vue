@@ -14,18 +14,21 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
 import { ElForm } from "element-plus";
+import { useStore } from "vuex";
 export default defineComponent({
   setup() {
+    const store = useStore()
     const account = reactive({
       name: "",
       password: "",
     });
     const formref = ref<InstanceType<typeof ElForm>>();
     const login = () => {
-      formref.value?.validate((r) => {
-        console.log("执行");
+      formref.value?.validate((flag) => {
+        if (flag) {
+          store.dispatch("loginModule/accountLogin", { ...account })
+        }
 
-        console.log(r);
       });
     };
     //编写规则
