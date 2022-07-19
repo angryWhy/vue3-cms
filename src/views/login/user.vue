@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="60px" :rules="rules" :model="account" :ref="formref">
+    <el-form label-width="60px" :rules="rules" :model="account" ref="formref">
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name" />
       </el-form-item>
@@ -22,10 +22,10 @@ export default defineComponent({
     });
     const formref = ref<InstanceType<typeof ElForm>>();
     const login = () => {
-      formref.value?.validate((validate) => {
+      formref.value?.validate((r) => {
         console.log("执行");
 
-        console.log(validate);
+        console.log(r);
       });
     };
     //编写规则

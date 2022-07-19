@@ -10,7 +10,7 @@
               <span>账号密码登录</span>
             </span>
           </template>
-          <user :ref="accountRef" />
+          <user ref="accountRef" />
         </el-tab-pane>
         <el-tab-pane
           ><template #label>
@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from "vue";
 import user from "./login/user.vue";
 import phone from "./login/phone.vue";
@@ -47,8 +47,8 @@ export default defineComponent({
     const isKeep = ref(true);
     const accountRef = ref<InstanceType<typeof user>>();
     const handleClick = () => {
-      console.log(accountRef.value.login());
-    };
+      console.log(accountRef.value?.login());
+    }; 
 
     return { isKeep, accountRef, handleClick };
   },
