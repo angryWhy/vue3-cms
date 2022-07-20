@@ -1,8 +1,8 @@
-import { ElButton,ElForm,ElFormItem,ElInput } from "element-plus";
+import { ElButton, ElForm, ElFormItem, ElInput, ElContainer, ElAside, ElHeader, ElMain, ElMenu, ElMenuItem, ElSubMenu } from "element-plus";
 import { App } from "vue";
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-const components = [ElButton];
-export function registerApp(app :App): void {
+const components = [ElButton, ElForm, ElFormItem, ElInput, ElContainer, ElAside, ElHeader, ElMain, ElMenu, ElMenuItem, ElSubMenu];
+export function registerApp(app: App): void {
   for (const cpn of components) {
     app.component(cpn.name, cpn);
   }

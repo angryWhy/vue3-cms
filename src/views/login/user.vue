@@ -15,6 +15,7 @@
 import { defineComponent, reactive, ref } from "vue";
 import { ElForm } from "element-plus";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     const store = useStore()
@@ -23,10 +24,12 @@ export default defineComponent({
       password: "",
     });
     const formref = ref<InstanceType<typeof ElForm>>();
+    const router = useRouter()
     const login = () => {
       formref.value?.validate((flag) => {
         if (flag) {
           store.dispatch("loginModule/accountLogin", { ...account })
+          router.push("/main")
         }
 
       });
