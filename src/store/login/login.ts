@@ -1,7 +1,10 @@
+import { mapRoutes } from "@/utils/map-menu";
 import { Module } from "vuex";
 import { IRootState } from "..";
 import { accountLoginAction, requestMenuByRoleId, requestUserInfoById } from '../../service/login/login';
 import LocalCache from "../../utils/cache"
+import router from '../../router/index';
+import { RouteRecord, RouteRecordNormalized } from 'vue-router';
 
 export interface ILoginState {
     token: string,
@@ -24,8 +27,13 @@ export const loginModule: Module<ILoginState, IRootState> = {
         },
         changeMenu(state, payload: any[]) {
             state.userMenus = payload
-        },
+            const routes = mapRoutes(state.userMenus)
+            console.log(routes);
 
+            routes.forEach((route: any) => {
+                router.addRoute("main", route)
+            })
+        },
     },
     actions: {
         async accountLogin({ commit }, payload) {
