@@ -1,4 +1,5 @@
 import { RouteRecord } from "vue-router";
+import Localcache from "../utils/cache"
 export function mapRoutes(userMenus: any[]): RouteRecord[] {
     const routes: RouteRecord[] = []
     //1.先默认加载所有的routes
@@ -27,6 +28,6 @@ export function mapRoutes(userMenus: any[]): RouteRecord[] {
         }
     }
     _getRoute(userMenus)
-    console.log(routes);
+    Localcache.setCache("routes", routes)
     return routes
 }

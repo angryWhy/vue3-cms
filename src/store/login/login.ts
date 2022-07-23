@@ -4,7 +4,6 @@ import { IRootState } from "..";
 import { accountLoginAction, requestMenuByRoleId, requestUserInfoById } from '../../service/login/login';
 import LocalCache from "../../utils/cache"
 import router from '../../router/index';
-import { RouteRecord, RouteRecordNormalized } from 'vue-router';
 
 export interface ILoginState {
     token: string,
@@ -26,10 +25,11 @@ export const loginModule: Module<ILoginState, IRootState> = {
             state.token = token
         },
         changeMenu(state, payload: any[]) {
+
             state.userMenus = payload
             const routes = mapRoutes(state.userMenus)
+            LocalCache.setCache('userMenus', payload)
             console.log(routes);
-
             routes.forEach((route: any) => {
                 router.addRoute("main", route)
             })
@@ -42,13 +42,12 @@ export const loginModule: Module<ILoginState, IRootState> = {
             LocalCache.setCache("token", token)
             commit("changeToken", token)
             const userResult = await requestUserInfoById(id)
-            console.log(userResult);
 
             // commit("changeMenu", menuResult)
-
             const menuResult = await requestMenuByRoleId(userResult.data.role.id)
             commit("changeMenu", menuResult.data)
-            console.log(menuResult.data);
+            LocalCache.setCache("menu", menuResult.data)
+
         }
     }
 }

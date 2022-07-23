@@ -15,7 +15,7 @@
                             <span>{{ item.name }}</span>
                         </template>
                         <template v-for="subitem in item.children" :key="subitem.id">
-                            <el-menu-item :index="subitem.id + ''">
+                            <el-menu-item :index="subitem.id + ''" @click="handleItem(subitem)">
                                 <i v-if="subitem.icon"></i>
                                 <span>{{ subitem.name }}</span>
                             </el-menu-item>
@@ -39,16 +39,25 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '../../store/index';
-
+import { useRouter } from 'vue-router';
+import LocalCache from "../../utils/cache"
 export default defineComponent({
 
     setup() {
         const store = useStore()
-        const userMenus = computed(() => store.state.loginModule.userMenus)
+        const router = useRouter()
+        const userMenus = LocalCache.getCache("userMenus")
+        const handleItem = (subitem: any) => {
+            console.log(subitem);
+            router.push({
+                path: subitem.url
+            })
+        }
         console.log(userMenus);
 
         return {
-            userMenus
+            userMenus,
+            handleItem
         }
     }
 })
