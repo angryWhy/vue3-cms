@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import LocalCache from "../utils/cache"
 import { mapRoutes } from "@/utils/map-menu";
-import store from "@/store";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -40,6 +39,5 @@ router.beforeEach((to, from) => {
 
     }
   }
-
 })
 export default router;

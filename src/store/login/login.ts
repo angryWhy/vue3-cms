@@ -48,7 +48,24 @@ export const loginModule: Module<ILoginState, IRootState> = {
             commit("changeMenu", menuResult.data)
             LocalCache.setCache("menu", menuResult.data)
 
+        },
+        loadLocalLogin({ commit, dispatch }) {
+            const token = LocalCache.getCache('token')
+            // if (token) {
+            //     commit('changeToken', token)
+            //     // 发送初始化的请求(完整的role/department)
+            //     dispatch('getInitialDataAction', null, { root: true })
+            // }
+            // const userInfo = LocalCache.getCache('userInfo')
+            // if (userInfo) {
+            //     commit('changeUserInfo', userInfo)
+            // }
+            const userMenus = LocalCache.getCache('menu')
+            if (userMenus) {
+                commit('changeMenu', userMenus)
+            }
         }
     }
 }
+
 

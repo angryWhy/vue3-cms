@@ -9,7 +9,7 @@ interface IRootWithModule {
 }
 type IStoreType = IRootState & IRootWithModule
 
-export default createStore<IRootState>({
+const store = createStore<IRootState>({
 
   state: {
     token: ""
@@ -24,3 +24,7 @@ export default createStore<IRootState>({
 export function useStore(): Store<IStoreType> {
   return useVuex()
 }
+export function setupStore() {
+  store.dispatch("loginModule/loadLocalLogin")
+}
+export default store
