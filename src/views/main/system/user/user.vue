@@ -5,15 +5,29 @@
         :formItems="forItem"
         :itemStyle="itemStyle"
         v-model:formData="formData"
-      />
+      >
+        <template #header>
+          <h1>高级检索</h1>
+        </template>
+        <template #footer>
+          <el-button>重置</el-button>
+          <el-button type="primary">提交</el-button>
+        </template>
+      </BaseForm>
+      <el-table :data="userList" style="width: 100%">
+        <template v-for="item in propList" :key="item">
+          <el-table-column v-bind="item" />
+        </template>
+      </el-table>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { IFormItem } from "../../../../base-ui/baseFormType";
 import BaseForm from "@/base-ui/baseForm.vue";
+import { useStore } from "../../../../store/index";
 
 export default defineComponent({
   name: "user",
@@ -66,10 +80,31 @@ export default defineComponent({
       sport: "",
       createTime: "",
     });
+    const store = useStore();
+    store.dispatch("systemModule/getPageListAction", {
+      pageurl: "/users/list",
+      queryInfo: {
+        offset: 0,
+        size: 10,
+      },
+    });
+    const userList = computed(() => store.state.systemModule.userList);
+    const userCount = computed(() => store.state.systemModule.userCount);
+    const propList = [
+      { prop: "name", label: "用户名", minWidth: "100" },
+      { prop: "realname", label: "真实姓名", minWidth: "100" },
+      { prop: "ceelphone", label: "手机号码", minWidth: "100" },
+      { prop: "enable", label: "状态", minWidth: "100" },
+      { prop: "createAt", label: "创建时间", minWidth: "250" },
+      { prop: "updateAt", label: "更新时间", minWidth: "250" },
+    ];
     return {
       forItem,
       itemStyle,
       formData,
+      userList,
+      userCount,
+      propList,
     };
   },
   components: { BaseForm },

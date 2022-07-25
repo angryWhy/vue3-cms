@@ -23,11 +23,11 @@ export class axiosRequest {
     //所有实例拦截
     this.instance.interceptors.request.use(
       (config) => {
-        this.loading = ElLoading.service({
-          lock: true,
-          text: '正在请求',
-          background: 'rgba(0,0,0,0.5)'
-        })
+        // this.loading = ElLoading.service({
+        //   lock: true,
+        //   text: '正在请求',
+        //   background: 'rgba(0,0,0,0.5)'
+        // })
         return config
       },
       (err) => {
