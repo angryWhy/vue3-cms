@@ -15,8 +15,8 @@
         </template>
       </BaseForm>
       <el-table :data="userList" style="width: 100%">
-        <template v-for="item in propList" :key="item">
-          <el-table-column v-bind="item" />
+        <template v-for="propitem in propList" :key="propitem.prop">
+          <el-table-column v-bind="propitem" />
         </template>
       </el-table>
     </div>
@@ -89,6 +89,7 @@ export default defineComponent({
       },
     });
     const userList = computed(() => store.state.systemModule.userList);
+
     const userCount = computed(() => store.state.systemModule.userCount);
     const propList = [
       { prop: "name", label: "用户名", minWidth: "100" },

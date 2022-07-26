@@ -17,7 +17,7 @@ export const loginModule: Module<ILoginState, IRootState> = {
             token: "",
             userInfo: "",
             id: "",
-            userMenus: []
+            userMenus: [],
         }
     },
     mutations: {
@@ -42,6 +42,7 @@ export const loginModule: Module<ILoginState, IRootState> = {
             LocalCache.setCache("token", token)
             commit("changeToken", token)
             const userResult = await requestUserInfoById(id)
+
 
             // commit("changeMenu", menuResult)
             const menuResult = await requestMenuByRoleId(userResult.data.role.id)

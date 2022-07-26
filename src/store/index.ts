@@ -12,9 +12,10 @@ interface IRootWithModule {
 type IStoreType = IRootState & IRootWithModule
 
 const store = createStore<IRootState>({
-
-  state: {
-    token: ""
+  state() {
+    return {
+      token: ""
+    }
   },
   getters: {},
   mutations: {},
