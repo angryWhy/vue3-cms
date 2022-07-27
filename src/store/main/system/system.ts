@@ -2,23 +2,23 @@ import { getPageList } from "@/service/main/main";
 import { Module } from "vuex"
 import { IRootState } from '../../index';
 export interface ISystemState {
-    userList: any[]
+    userList: any
     userCount: number
 }
 export const systemModule: Module<ISystemState, IRootState> = {
     namespaced: true,
     state() {
         return {
-            userList: [],
+            userList: "",
             userCount: 0
         }
     },
     mutations: {
-        changeUserList(state, payload) {
-            state.userList = payload
+        changeUserList(state, userList) {
+            state.userList = userList
         },
         changeUserCount(state, payload) {
-            state.userList = payload
+            state.userCount = payload
         }
     },
     actions: {

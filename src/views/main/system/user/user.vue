@@ -24,14 +24,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, onMounted, ref, watchEffect } from "vue";
 import { IFormItem } from "../../../../base-ui/baseFormType";
 import BaseForm from "@/base-ui/baseForm.vue";
 import { useStore } from "../../../../store/index";
 
 export default defineComponent({
-  name: "user",
   setup() {
+    const store = useStore();
+    store.dispatch("systemModule/getPageListAction", {
+      pageurl: "/users/list",
+      queryInfo: {
+        offset: 0,
+        size: 10,
+      },
+    });
     const forItem: IFormItem[] = [
       {
         field: "name",
@@ -80,16 +87,9 @@ export default defineComponent({
       sport: "",
       createTime: "",
     });
-    const store = useStore();
-    store.dispatch("systemModule/getPageListAction", {
-      pageurl: "/users/list",
-      queryInfo: {
-        offset: 0,
-        size: 10,
-      },
-    });
-    const userList = computed(() => store.state.systemModule.userList);
 
+    const userList = computed(() => store.state.systemModule.userList);
+    console.log(store.state.systemModule.userList);
     const userCount = computed(() => store.state.systemModule.userCount);
     const propList = [
       { prop: "name", label: "用户名", minWidth: "100" },
@@ -110,6 +110,10 @@ export default defineComponent({
   },
   components: { BaseForm },
 });
+
+function old(arg0: any, old: any) {
+  throw new Error("Function not implemented.");
+}
 </script>
 
 <style scoped>
